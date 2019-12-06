@@ -33,7 +33,7 @@ public class Problem1 {
     }
 
     public static double sinsquare(double x) {
-        double value = Math.sin(x) * Math.sinh(x);
+        double value = Math.sin(x) * Math.sin(x);
         return value;
     }
 

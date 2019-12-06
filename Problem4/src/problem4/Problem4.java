@@ -2,16 +2,19 @@ package problem4;
 
 import java.util.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Problem4 {
 
     public static void main(String[] args) {
         BufferedReader br = null;
+        PrintWriter printwriter = null;
         try {
             br = new BufferedReader(new FileReader("myTextWindows.txt"));
-            System.out.println("Reading the file using readLine() method:");
             String contentLine = br.readLine();
             int linecount = 0;
             String content = " ";
@@ -21,10 +24,16 @@ public class Problem4 {
                 linecount++;
             }
             StringTokenizer words = new StringTokenizer(content);
-            System.out.println(content);
-            System.out.println("The file \"myTextWindows.txt\" was successfully read.");
-            System.out.println("Number of words:     " + words.countTokens());
-            System.out.println("Number of lines:     " + linecount);
+            File dataFile = new File("myTextData.txt");
+            
+            FileWriter filewriter = new FileWriter(dataFile);
+            printwriter = new PrintWriter(filewriter);
+            
+            
+            
+            printwriter.println("The file \"myTextWindows.txt\" was successfully read.");
+            printwriter.println("Number of words:     " + words.countTokens());
+            printwriter.println("Number of lines:     " + linecount);
             int wordcount = words.countTokens();
             int bigwords = 0;
             double worda = 0;
@@ -38,15 +47,19 @@ public class Problem4 {
                 }
                 worda += wordsize;
             }
-            System.out.println("Longest word:        " + bigword);
-            System.out.println("Longest word length: " + bigwords);
-            System.out.printf("Average word length: %.1f\n", worda / wordcount);
+            printwriter.println("Longest word:        " + bigword);
+            printwriter.println("Longest word length: " + bigwords);
+            printwriter.printf("Average word length: %.1f\n", worda / wordcount);
         } catch (IOException ioe) {
             ioe.printStackTrace(System.out);
         } finally {
             try {
                 if (br != null) {
                     br.close();
+                }
+                
+                if (printwriter != null) {
+                    printwriter.close();
                 }
             } catch (IOException ioe) {
                 System.out.println("Error in closing the BufferedReader");
